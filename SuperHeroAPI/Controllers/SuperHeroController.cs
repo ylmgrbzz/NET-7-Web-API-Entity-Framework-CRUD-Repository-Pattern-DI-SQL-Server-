@@ -42,7 +42,7 @@ namespace SuperHeroAPI.Controllers
             return Ok(superHeroes);
         }
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<List<SuperHero>>> GetSingleHero(int id)
+        public async Task<ActionResult<SuperHero>> GetSingleHero(int id)
         {
             var hero = superHeroes.Find(x => x.Id == id);
             //var heros = superHeroes.Find(x => x.Id == id);
@@ -63,5 +63,31 @@ namespace SuperHeroAPI.Controllers
             return Ok(superHeroes);
         }
 
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<List<SuperHero>>> UpdateHero(int id, SuperHero hero)
+        {
+            var heroToUpdate = superHeroes.Find(x => x.Id == id);
+            if (heroToUpdate == null)
+            {
+                return NotFound("Hero is not exist");
+            }
+            heroToUpdate.Name = hero.Name;
+            heroToUpdate.FirstName = hero.FirstName;
+            heroToUpdate.LastName = hero.LastName;
+            heroToUpdate.Place = hero.Place;
+            return Ok(superHeroes);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<List<SuperHero>>> DeleteHero(int id)
+        {
+            var heroToDelete = superHeroes.Find(x => x.Id == id);
+            if (heroToDelete == null)
+            {
+                return NotFound("Hero is not exist");
+            }
+            superHeroes.Remove(heroToDelete);
+            return Ok(superHeroes);
+        }
     }
 }
