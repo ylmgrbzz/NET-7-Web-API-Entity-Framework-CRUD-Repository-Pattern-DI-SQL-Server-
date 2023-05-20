@@ -19,13 +19,13 @@ namespace SuperHeroAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<SuperHero>>> GetAllHeroes()
         {
-            var heroes = _superHeroService.GetAllHeroes();
+            var heroes = await _superHeroService.GetAllHeroes();
             return Ok(heroes);
         }
         [HttpGet("{id:int}")]
         public async Task<ActionResult<SuperHero>> GetSingleHero(int id)
         {
-            var hero = _superHeroService.GetSingleHero(id);
+            var hero = await _superHeroService.GetSingleHero(id);
             if (hero == null)
             {
                 return NotFound("hero not found");
@@ -36,14 +36,14 @@ namespace SuperHeroAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<List<SuperHero>>> AddHero(SuperHero hero)
         {
-            var heroToAdd = _superHeroService.AddHero(hero);
+            var heroToAdd = await _superHeroService.AddHero(hero);
             return Ok(heroToAdd);
         }
 
         [HttpPut("{id:int}")]
         public async Task<ActionResult<List<SuperHero>>> UpdateHero(int id, SuperHero hero)
         {
-            var heroToUpdate = _superHeroService.UpdateHero(id, hero);
+            var heroToUpdate = await _superHeroService.UpdateHero(id, hero);
             if (heroToUpdate == null)
             {
                 return NotFound("hero not found");
@@ -54,7 +54,7 @@ namespace SuperHeroAPI.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<List<SuperHero>>> DeleteHero(int id)
         {
-            var heroToDelete = _superHeroService.DeleteHero(id);
+            var heroToDelete = await _superHeroService.DeleteHero(id);
             if (heroToDelete == null)
             {
                 return NotFound("hero not found");
